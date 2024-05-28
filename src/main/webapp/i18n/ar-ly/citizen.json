@@ -1,0 +1,28 @@
+{
+  "postOfficeMoneyTransferApp": {
+    "citizen": {
+      "home": {
+        "title": "Citizens",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Citizen",
+        "createOrEditLabel": "Create or edit a Citizen",
+        "search": "Search for Citizen",
+        "notFound": "No Citizens found"
+      },
+      "created": "A new Citizen is created with identifier {{ param }}",
+      "updated": "A Citizen is updated with identifier {{ param }}",
+      "deleted": "A Citizen is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Citizen {{ id }}?"
+      },
+      "detail": {
+        "title": "Citizen"
+      },
+      "id": "ID",
+      "nationalId": "National Id",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "phoneNumber": "Phone Number"
+    }
+  }
+}

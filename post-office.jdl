@@ -1,0 +1,40 @@
+entity Citizen {
+  nationalId String required unique minlength(14) maxlength(14) pattern(/^[0-9]{14}$/),
+  firstName String required,
+  lastName String required,
+  phoneNumber String required minlength(11) maxlength(11) pattern(/^[0-9]{11}$/)
+}
+
+entity PostOffice {
+  name String required,
+  streetAddress String required,
+  city String required,
+  state String required,
+  postalCode String required pattern(/^[0-9]{5}(-[0-9]{4})?$/)
+}
+
+entity Transaction {
+  amount BigDecimal required,
+  transactionDate LocalDate required,
+  status TransactionStatus required
+}
+
+enum TransactionStatus {
+  PENDING,
+  COMPLETED,
+  CANCELLED
+}
+
+relationship ManyToOne {
+  Transaction{sender(nationalId) required} to Citizen,
+  Transaction{receiver(nationalId) required} to Citizen,
+  Transaction{senderPostOffice(name)} to PostOffice,
+  Transaction{receiverPostOffice(name)} to PostOffice
+}
+
+paginate Citizen, PostOffice, Transaction with pagination
+service Citizen, PostOffice, Transaction with serviceClass
+dto Citizen, PostOffice, Transaction with mapstruct
+filter Citizen, PostOffice, Transaction
+search Citizen, PostOffice, Transaction with elasticsearch
+

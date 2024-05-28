@@ -1,0 +1,62 @@
+{
+  "annotations": {
+    "changelogDate": "20240525025544"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "amount",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "transactionDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "TransactionStatus",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PENDING,COMPLETED,CANCELLED"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Transaction",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "nationalId",
+      "otherEntityName": "citizen",
+      "relationshipName": "sender",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "nationalId",
+      "otherEntityName": "citizen",
+      "relationshipName": "receiver",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "postOffice",
+      "relationshipName": "senderPostOffice",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "postOffice",
+      "relationshipName": "receiverPostOffice",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "elasticsearch",
+  "service": "serviceClass"
+}

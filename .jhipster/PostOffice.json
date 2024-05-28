@@ -1,0 +1,41 @@
+{
+  "annotations": {
+    "changelogDate": "20240525025543"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "streetAddress",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "city",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "state",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "postalCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "pattern"],
+      "fieldValidateRulesPattern": "^[0-9]{5}(-[0-9]{4})?$"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "PostOffice",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "elasticsearch",
+  "service": "serviceClass"
+}

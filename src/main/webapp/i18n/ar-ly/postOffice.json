@@ -1,0 +1,29 @@
+{
+  "postOfficeMoneyTransferApp": {
+    "postOffice": {
+      "home": {
+        "title": "Post Offices",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Post Office",
+        "createOrEditLabel": "Create or edit a Post Office",
+        "search": "Search for Post Office",
+        "notFound": "No Post Offices found"
+      },
+      "created": "A new Post Office is created with identifier {{ param }}",
+      "updated": "A Post Office is updated with identifier {{ param }}",
+      "deleted": "A Post Office is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Post Office {{ id }}?"
+      },
+      "detail": {
+        "title": "Post Office"
+      },
+      "id": "ID",
+      "name": "Name",
+      "streetAddress": "Street Address",
+      "city": "City",
+      "state": "State",
+      "postalCode": "Postal Code"
+    }
+  }
+}

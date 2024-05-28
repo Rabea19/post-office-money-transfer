@@ -1,0 +1,197 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-transaction-heading"
+        data-cy="TransactionCreateUpdateHeading"
+        jhiTranslate="postOfficeMoneyTransferApp.transaction.home.createOrEditLabel"
+      >
+        Create or edit a Transaction
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="postOfficeMoneyTransferApp.transaction.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_amount" jhiTranslate="postOfficeMoneyTransferApp.transaction.amount">Amount</label>
+          <input type="number" class="form-control" name="amount" id="field_amount" data-cy="amount" formControlName="amount" />
+          @if (editForm.get('amount')!.invalid && (editForm.get('amount')!.dirty || editForm.get('amount')!.touched)) {
+            <div>
+              @if (editForm.get('amount')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">هذا الحقل مطلوب.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('amount')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >هذا الحقل يجب أن يكون رقم.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_transactionDate" jhiTranslate="postOfficeMoneyTransferApp.transaction.transactionDate"
+            >Transaction Date</label
+          >
+          <div class="input-group">
+            <input
+              id="field_transactionDate"
+              data-cy="transactionDate"
+              type="text"
+              class="form-control"
+              name="transactionDate"
+              ngbDatepicker
+              #transactionDateDp="ngbDatepicker"
+              formControlName="transactionDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="transactionDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          @if (
+            editForm.get('transactionDate')!.invalid && (editForm.get('transactionDate')!.dirty || editForm.get('transactionDate')!.touched)
+          ) {
+            <div>
+              @if (editForm.get('transactionDate')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">هذا الحقل مطلوب.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_status" jhiTranslate="postOfficeMoneyTransferApp.transaction.status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null">{{ 'postOfficeMoneyTransferApp.TransactionStatus.null' | translate }}</option>
+            @for (transactionStatus of transactionStatusValues; track $index) {
+              <option [value]="transactionStatus">
+                {{ 'postOfficeMoneyTransferApp.TransactionStatus.' + transactionStatus | translate }}
+              </option>
+            }
+          </select>
+          @if (editForm.get('status')!.invalid && (editForm.get('status')!.dirty || editForm.get('status')!.touched)) {
+            <div>
+              @if (editForm.get('status')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">هذا الحقل مطلوب.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_sender" jhiTranslate="postOfficeMoneyTransferApp.transaction.sender">Sender</label>
+          <select
+            class="form-control"
+            id="field_sender"
+            data-cy="sender"
+            name="sender"
+            formControlName="sender"
+            [compareWith]="compareCitizen"
+          >
+            @if (!editForm.get('sender')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (citizenOption of citizensSharedCollection; track $index) {
+              <option [ngValue]="citizenOption">{{ citizenOption.nationalId }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['sender'])!.invalid && (editForm.get(['sender'])!.dirty || editForm.get(['sender'])!.touched)) {
+          <div>
+            @if (editForm.get(['sender'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">هذا الحقل مطلوب.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_receiver" jhiTranslate="postOfficeMoneyTransferApp.transaction.receiver">Receiver</label>
+          <select
+            class="form-control"
+            id="field_receiver"
+            data-cy="receiver"
+            name="receiver"
+            formControlName="receiver"
+            [compareWith]="compareCitizen"
+          >
+            @if (!editForm.get('receiver')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (citizenOption of citizensSharedCollection; track $index) {
+              <option [ngValue]="citizenOption">{{ citizenOption.nationalId }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['receiver'])!.invalid && (editForm.get(['receiver'])!.dirty || editForm.get(['receiver'])!.touched)) {
+          <div>
+            @if (editForm.get(['receiver'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">هذا الحقل مطلوب.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_senderPostOffice" jhiTranslate="postOfficeMoneyTransferApp.transaction.senderPostOffice"
+            >Sender Post Office</label
+          >
+          <select
+            class="form-control"
+            id="field_senderPostOffice"
+            data-cy="senderPostOffice"
+            name="senderPostOffice"
+            formControlName="senderPostOffice"
+            [compareWith]="comparePostOffice"
+          >
+            <option [ngValue]="null"></option>
+            @for (postOfficeOption of postOfficesSharedCollection; track $index) {
+              <option [ngValue]="postOfficeOption">{{ postOfficeOption.name }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_receiverPostOffice" jhiTranslate="postOfficeMoneyTransferApp.transaction.receiverPostOffice"
+            >Receiver Post Office</label
+          >
+          <select
+            class="form-control"
+            id="field_receiverPostOffice"
+            data-cy="receiverPostOffice"
+            name="receiverPostOffice"
+            formControlName="receiverPostOffice"
+            [compareWith]="comparePostOffice"
+          >
+            <option [ngValue]="null"></option>
+            @for (postOfficeOption of postOfficesSharedCollection; track $index) {
+              <option [ngValue]="postOfficeOption">{{ postOfficeOption.name }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">الغاء</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">حفظ</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

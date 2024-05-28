@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Transaction.
+    -->
+    <changeSet id="20240525025544-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="sender_id"
+                                 baseTableName="transaction"
+                                 constraintName="fk_transaction__sender_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="citizen"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="receiver_id"
+                                 baseTableName="transaction"
+                                 constraintName="fk_transaction__receiver_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="citizen"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="sender_post_office_id"
+                                 baseTableName="transaction"
+                                 constraintName="fk_transaction__sender_post_office_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="post_office"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="receiver_post_office_id"
+                                 baseTableName="transaction"
+                                 constraintName="fk_transaction__receiver_post_office_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="post_office"
+                                 />
+    </changeSet>
+</databaseChangeLog>

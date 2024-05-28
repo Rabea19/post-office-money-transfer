@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (citizen()) {
+      <div>
+        <h2 data-cy="citizenDetailsHeading"><span jhiTranslate="postOfficeMoneyTransferApp.citizen.detail.title">Citizen</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ citizen()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="postOfficeMoneyTransferApp.citizen.nationalId">National Id</span></dt>
+          <dd>
+            <span>{{ citizen()!.nationalId }}</span>
+          </dd>
+          <dt><span jhiTranslate="postOfficeMoneyTransferApp.citizen.firstName">First Name</span></dt>
+          <dd>
+            <span>{{ citizen()!.firstName }}</span>
+          </dd>
+          <dt><span jhiTranslate="postOfficeMoneyTransferApp.citizen.lastName">Last Name</span></dt>
+          <dd>
+            <span>{{ citizen()!.lastName }}</span>
+          </dd>
+          <dt><span jhiTranslate="postOfficeMoneyTransferApp.citizen.phoneNumber">Phone Number</span></dt>
+          <dd>
+            <span>{{ citizen()!.phoneNumber }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">رجوع</span>
+        </button>
+
+        <button type="button" [routerLink]="['/citizen', citizen()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">تعديل</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

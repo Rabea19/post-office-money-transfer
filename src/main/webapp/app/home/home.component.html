@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-3">
+    <span class="hipster img-fluid rounded"></span>
+  </div>
+
+  <div class="col-md-9">
+    <h1 class="display-4"><span jhiTranslate="home.title">أهلا وسهلا بك،</span> (Post Office Money Transfer)</h1>
+
+    <p class="lead" jhiTranslate="home.subtitle">هذه صفحتك الرئيسية</p>
+
+    <div>
+      @if (account() !== null) {
+        <div class="alert alert-success">
+          @if (account()) {
+            <span id="home-logged-message" jhiTranslate="home.logged.message" [translateValues]="{ username: account()!.login }"
+              >قمت بتسجيل الدخول كمستخدم &quot;{{ account()!.login }}&quot;.</span
+            >
+          }
+        </div>
+      } @else {
+        <div class="alert alert-warning">
+          <span jhiTranslate="global.messages.info.authenticated.prefix">إذا اردت أن </span>
+          <a class="alert-link" (click)="login()" jhiTranslate="global.messages.info.authenticated.link">تسجل دخولك</a
+          ><span jhiTranslate="global.messages.info.authenticated.suffix"
+            >, يمكنك تجربة الحسابات التجريبية:<br />- المدير (login=&quot;admin&quot; و كلمة المرور=&quot;admin&quot;) <br />- المستخدم
+            (login=&quot;user&quot; و كلمة المرور=&quot;user&quot;).</span
+          >
+        </div>
+
+        <div class="alert alert-warning">
+          <span jhiTranslate="global.messages.info.register.noaccount">لا تملك حسابا حتى الآن؟</span>&nbsp;
+          <a class="alert-link" routerLink="/account/register" jhiTranslate="global.messages.info.register.link">تسجيل حساب جديد</a>
+        </div>
+      }
+    </div>
+  </div>
+</div>

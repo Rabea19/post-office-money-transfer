@@ -1,0 +1,41 @@
+{
+  "annotations": {
+    "changelogDate": "20240525025542"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "nationalId",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique", "minlength", "maxlength", "pattern"],
+      "fieldValidateRulesMaxlength": "14",
+      "fieldValidateRulesMinlength": "14",
+      "fieldValidateRulesPattern": "^[0-9]{14}$"
+    },
+    {
+      "fieldName": "firstName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "lastName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "phoneNumber",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength", "pattern"],
+      "fieldValidateRulesMaxlength": "11",
+      "fieldValidateRulesMinlength": "11",
+      "fieldValidateRulesPattern": "^[0-9]{11}$"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Citizen",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "elasticsearch",
+  "service": "serviceClass"
+}

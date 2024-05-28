@@ -1,0 +1,137 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-citizen-heading"
+        data-cy="CitizenCreateUpdateHeading"
+        jhiTranslate="postOfficeMoneyTransferApp.citizen.home.createOrEditLabel"
+      >
+        Create or edit a Citizen
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="postOfficeMoneyTransferApp.citizen.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_nationalId" jhiTranslate="postOfficeMoneyTransferApp.citizen.nationalId">National Id</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nationalId"
+            id="field_nationalId"
+            data-cy="nationalId"
+            formControlName="nationalId"
+          />
+          @if (editForm.get('nationalId')!.invalid && (editForm.get('nationalId')!.dirty || editForm.get('nationalId')!.touched)) {
+            <div>
+              @if (editForm.get('nationalId')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">هذا الحقل مطلوب.</small>
+              }
+              @if (editForm.get('nationalId')?.errors?.minlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: '14' }"
+                  >هذا الحقل مطلوب أن يكون على الأقل 14 احرف.</small
+                >
+              }
+              @if (editForm.get('nationalId')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '14' }"
+                  >هذا الحقل لا يمكن أن يكون أطول من 14 احرف.</small
+                >
+              }
+              @if (editForm.get('nationalId')?.errors?.pattern) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'National Id' }"
+                  >هذا الحقل يجب أن يتبع نمط National Id.</small
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_firstName" jhiTranslate="postOfficeMoneyTransferApp.citizen.firstName">First Name</label>
+          <input type="text" class="form-control" name="firstName" id="field_firstName" data-cy="firstName" formControlName="firstName" />
+          @if (editForm.get('firstName')!.invalid && (editForm.get('firstName')!.dirty || editForm.get('firstName')!.touched)) {
+            <div>
+              @if (editForm.get('firstName')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">هذا الحقل مطلوب.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_lastName" jhiTranslate="postOfficeMoneyTransferApp.citizen.lastName">Last Name</label>
+          <input type="text" class="form-control" name="lastName" id="field_lastName" data-cy="lastName" formControlName="lastName" />
+          @if (editForm.get('lastName')!.invalid && (editForm.get('lastName')!.dirty || editForm.get('lastName')!.touched)) {
+            <div>
+              @if (editForm.get('lastName')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">هذا الحقل مطلوب.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_phoneNumber" jhiTranslate="postOfficeMoneyTransferApp.citizen.phoneNumber"
+            >Phone Number</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="phoneNumber"
+            id="field_phoneNumber"
+            data-cy="phoneNumber"
+            formControlName="phoneNumber"
+          />
+          @if (editForm.get('phoneNumber')!.invalid && (editForm.get('phoneNumber')!.dirty || editForm.get('phoneNumber')!.touched)) {
+            <div>
+              @if (editForm.get('phoneNumber')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">هذا الحقل مطلوب.</small>
+              }
+              @if (editForm.get('phoneNumber')?.errors?.minlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: '11' }"
+                  >هذا الحقل مطلوب أن يكون على الأقل 11 احرف.</small
+                >
+              }
+              @if (editForm.get('phoneNumber')?.errors?.maxlength) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: '11' }"
+                  >هذا الحقل لا يمكن أن يكون أطول من 11 احرف.</small
+                >
+              }
+              @if (editForm.get('phoneNumber')?.errors?.pattern) {
+                <small
+                  class="form-text text-danger"
+                  jhiTranslate="entity.validation.pattern"
+                  [translateValues]="{ pattern: 'Phone Number' }"
+                  >هذا الحقل يجب أن يتبع نمط Phone Number.</small
+                >
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">الغاء</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">حفظ</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

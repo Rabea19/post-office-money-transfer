@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (postOffice()) {
+      <div>
+        <h2 data-cy="postOfficeDetailsHeading">
+          <span jhiTranslate="postOfficeMoneyTransferApp.postOffice.detail.title">Post Office</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ postOffice()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="postOfficeMoneyTransferApp.postOffice.name">Name</span></dt>
+          <dd>
+            <span>{{ postOffice()!.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="postOfficeMoneyTransferApp.postOffice.streetAddress">Street Address</span></dt>
+          <dd>
+            <span>{{ postOffice()!.streetAddress }}</span>
+          </dd>
+          <dt><span jhiTranslate="postOfficeMoneyTransferApp.postOffice.city">City</span></dt>
+          <dd>
+            <span>{{ postOffice()!.city }}</span>
+          </dd>
+          <dt><span jhiTranslate="postOfficeMoneyTransferApp.postOffice.state">State</span></dt>
+          <dd>
+            <span>{{ postOffice()!.state }}</span>
+          </dd>
+          <dt><span jhiTranslate="postOfficeMoneyTransferApp.postOffice.postalCode">Postal Code</span></dt>
+          <dd>
+            <span>{{ postOffice()!.postalCode }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">رجوع</span>
+        </button>
+
+        <button type="button" [routerLink]="['/post-office', postOffice()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">تعديل</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

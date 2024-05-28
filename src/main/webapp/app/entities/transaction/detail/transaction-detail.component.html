@@ -1,0 +1,82 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (transaction()) {
+      <div>
+        <h2 data-cy="transactionDetailsHeading">
+          <span jhiTranslate="postOfficeMoneyTransferApp.transaction.detail.title">Transaction</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ transaction()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="postOfficeMoneyTransferApp.transaction.amount">Amount</span></dt>
+          <dd>
+            <span>{{ transaction()!.amount }}</span>
+          </dd>
+          <dt><span jhiTranslate="postOfficeMoneyTransferApp.transaction.transactionDate">Transaction Date</span></dt>
+          <dd>
+            <span>{{ transaction()!.transactionDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="postOfficeMoneyTransferApp.transaction.status">Status</span></dt>
+          <dd>
+            <span [jhiTranslate]="'postOfficeMoneyTransferApp.TransactionStatus.' + (transaction()!.status ?? 'null')">{{
+              { null: '', PENDING: 'PENDING', COMPLETED: 'COMPLETED', CANCELLED: 'CANCELLED' }[transaction()!.status ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="postOfficeMoneyTransferApp.transaction.sender">Sender</span></dt>
+          <dd>
+            @if (transaction()!.sender) {
+              <div>
+                <a [routerLink]="['/citizen', transaction()!.sender?.id, 'view']">{{ transaction()!.sender?.nationalId }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="postOfficeMoneyTransferApp.transaction.receiver">Receiver</span></dt>
+          <dd>
+            @if (transaction()!.receiver) {
+              <div>
+                <a [routerLink]="['/citizen', transaction()!.receiver?.id, 'view']">{{ transaction()!.receiver?.nationalId }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="postOfficeMoneyTransferApp.transaction.senderPostOffice">Sender Post Office</span></dt>
+          <dd>
+            @if (transaction()!.senderPostOffice) {
+              <div>
+                <a [routerLink]="['/post-office', transaction()!.senderPostOffice?.id, 'view']">{{
+                  transaction()!.senderPostOffice?.name
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="postOfficeMoneyTransferApp.transaction.receiverPostOffice">Receiver Post Office</span></dt>
+          <dd>
+            @if (transaction()!.receiverPostOffice) {
+              <div>
+                <a [routerLink]="['/post-office', transaction()!.receiverPostOffice?.id, 'view']">{{
+                  transaction()!.receiverPostOffice?.name
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">رجوع</span>
+        </button>
+
+        <button type="button" [routerLink]="['/transaction', transaction()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">تعديل</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

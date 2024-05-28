@@ -1,0 +1,4 @@
+org.springframework.test.context.ContextCustomizerFactory = io.fciz.postoffice.\
+    moneytransfer.config.SqlTestContainersSpringContextCustomizerFactory,io.\
+    fciz.postoffice.moneytransfer.config.\
+    TestContainersSpringContextCustomizerFactory
